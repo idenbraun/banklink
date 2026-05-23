@@ -5,7 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Домашние задания | Денис Браун</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0D0D0D;
+            --bg-secondary: #141414;
+            --bg-card: #1A1A1A;
+            --bg-card-hover: #1F1F1F;
+            --text-primary: #FFFFFF;
+            --text-secondary: #999999;
+            --text-muted: #666666;
+            --accent-lime: #C8E600;
+            --accent-lime-dark: #A8C200;
+            --accent-lime-glow: rgba(200, 230, 0, 0.12);
+            --docs-blue: #4285f4;
+            --docs-blue-bg: rgba(66, 133, 244, 0.1);
+            --sheets-green: #34a853;
+            --sheets-green-bg: rgba(52, 168, 83, 0.1);
+            --coursework-orange: #e8710a;
+            --coursework-orange-bg: rgba(232, 113, 10, 0.1);
+            --github-gray: #999;
+            --github-gray-bg: rgba(153, 153, 153, 0.1);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-medium: rgba(255, 255, 255, 0.1);
+            --border-lime: rgba(200, 230, 0, 0.3);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,12 +42,25 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.5;
             min-height: 100vh;
             padding: 40px 20px;
-            color: #2d3436;
-            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-lime);
+            border-radius: 3px;
         }
 
         .container {
@@ -26,439 +68,396 @@
             margin: 0 auto;
         }
 
-        /* === Карточка-обёртка === */
-        .main-card {
-            background: #ffffff;
-            border-radius: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            padding: 40px;
+        /* ===== HEADER ===== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-lime);
+            border-radius: 2px;
+            opacity: 0.5;
+        }
+        .page-header h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        .page-header h1 .lime {
+            color: var(--accent-lime);
+        }
+        .page-header .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            background: rgba(200, 230, 0, 0.05);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(200, 230, 0, 0.1);
+            letter-spacing: -0.2px;
+        }
+
+        /* ===== CATEGORY ===== */
+        .category {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-
-        .main-card::before {
+        .category::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 6px;
-            background: linear-gradient(90deg, #6c5ce7, #a29bfe, #6c5ce7);
+            height: 2px;
+            background: var(--accent-lime);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
-
-        /* === Заголовок === */
-        .page-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2d3436;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #6c5ce7;
-            font-weight: 500;
-            background: rgba(108, 92, 231, 0.1);
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-        }
-
-        /* === Категория === */
-        .category {
-            background: #f8f9fa;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-
         .category:hover {
-            border-left-color: #6c5ce7;
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.1);
-            transform: translateX(3px);
+            border-color: var(--border-lime);
+            background: var(--bg-card-hover);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
-
+        .category:hover::before {
+            transform: scaleX(1);
+        }
         .category-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #6c5ce7;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-lime);
             margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #dfe6e9;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             gap: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
         .category-title i {
-            color: #a29bfe;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            opacity: 0.8;
         }
 
-        /* === Сетка документов === */
+        /* ===== DOCS GRID ===== */
         .docs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 10px;
         }
 
-        /* === Карточка документа === */
+        /* ===== DOC CARD ===== */
         .doc-card {
-            background: white;
-            border: 1px solid #dfe6e9;
-            border-radius: 14px;
-            padding: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 16px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             position: relative;
             overflow: hidden;
         }
-
-        .doc-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0;
-            background: rgba(108, 92, 231, 0.05);
-            transition: width 0.3s ease;
-            z-index: 0;
-        }
-
-        .doc-card:hover::before {
-            width: 100%;
-        }
-
         .doc-card:hover {
-            border-color: #6c5ce7;
-            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.15);
-            transform: translateY(-3px);
+            border-color: var(--accent-lime);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(200, 230, 0, 0.05);
         }
-
-        .doc-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* === Иконка типа документа === */
         .doc-icon {
-            font-size: 38px;
-            min-width: 48px;
-            text-align: center;
-            color: #6c5ce7;
-            background: rgba(108, 92, 231, 0.08);
-            border-radius: 12px;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
         }
-
-        /* Специфичные цвета для Google Docs */
+        .doc-card:hover .doc-icon {
+            transform: scale(1.1);
+        }
+        /* Типы документов — иконки */
         .doc-card.type-docs .doc-icon {
-            color: #4285f4;
-            background: rgba(66, 133, 244, 0.1);
+            background: var(--docs-blue-bg);
+            color: var(--docs-blue);
         }
-
-        /* Специфичные цвета для Google Sheets */
         .doc-card.type-sheets .doc-icon {
-            color: #34a853;
-            background: rgba(52, 168, 83, 0.1);
+            background: var(--sheets-green-bg);
+            color: var(--sheets-green);
         }
-
-        /* Специфичные цвета для курсовой */
         .doc-card.type-coursework .doc-icon {
-            color: #e8710a;
-            background: rgba(232, 113, 10, 0.1);
+            background: var(--coursework-orange-bg);
+            color: var(--coursework-orange);
         }
-
-        /* Специфичные цвета для GitHub */
         .doc-card.type-github .doc-icon {
-            color: #2d3436;
-            background: rgba(45, 52, 54, 0.08);
+            background: var(--github-gray-bg);
+            color: var(--github-gray);
         }
-
-        /* === Информация о документе === */
         .doc-info {
             flex: 1;
             min-width: 0;
         }
-
-        .doc-name {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #2d3436;
-            margin-bottom: 5px;
-            word-wrap: break-word;
-            line-height: 1.3;
-        }
-
-        .doc-card:hover .doc-name {
-            color: #6c5ce7;
-        }
-
-        .doc-description {
-            font-size: 0.8rem;
-            color: #636e72;
-            margin-bottom: 4px;
-        }
-
-        .doc-date {
-            font-size: 0.75rem;
-            color: #95a5a6;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .doc-date i {
-            font-size: 0.7rem;
-        }
-
-        /* === Бейдж типа документа === */
         .doc-badge {
             display: inline-block;
-            font-size: 0.7rem;
+            font-size: 0.62rem;
+            font-weight: 600;
             padding: 2px 8px;
             border-radius: 10px;
-            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             margin-bottom: 4px;
         }
-
         .badge-docs {
-            background: rgba(66, 133, 244, 0.1);
-            color: #4285f4;
+            background: var(--docs-blue-bg);
+            color: var(--docs-blue);
         }
-
         .badge-sheets {
-            background: rgba(52, 168, 83, 0.1);
-            color: #34a853;
+            background: var(--sheets-green-bg);
+            color: var(--sheets-green);
         }
-
-        .badge-github {
-            background: rgba(45, 52, 54, 0.08);
-            color: #2d3436;
-        }
-
         .badge-coursework {
-            background: rgba(232, 113, 10, 0.1);
-            color: #e8710a;
+            background: var(--coursework-orange-bg);
+            color: var(--coursework-orange);
+        }
+        .badge-github {
+            background: var(--github-gray-bg);
+            color: var(--github-gray);
+        }
+        .doc-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+            word-wrap: break-word;
+        }
+        .doc-card:hover .doc-name {
+            color: var(--accent-lime);
+        }
+        .doc-description {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+        .doc-date {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .doc-date i {
+            font-size: 0.6rem;
         }
 
-        /* === Кнопка "Назад" === */
+        /* ===== BACK BUTTON ===== */
+        .back-section {
+            text-align: center;
+            margin-top: 30px;
+        }
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 25px;
-            padding: 10px 20px;
-            background: white;
-            border: 1px dashed #6c5ce7;
-            border-radius: 12px;
-            color: #6c5ce7;
+            padding: 12px 22px;
+            background: transparent;
+            border: 1.5px solid var(--border-medium);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            background: #6c5ce7;
-            color: white;
-            border-style: solid;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-        }
-
-        /* === Дата обновления === */
-        .last-updated {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #dfe6e9;
+            font-weight: 600;
             font-size: 0.85rem;
-            color: #95a5a6;
+            transition: all 0.3s ease;
+            letter-spacing: -0.2px;
+        }
+        .back-button:hover {
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+            background: rgba(200, 230, 0, 0.03);
+            box-shadow: 0 0 20px rgba(200, 230, 0, 0.06);
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            text-align: center;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.78rem;
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
-
-        .last-updated i {
-            color: #bdc3c7;
+        .page-footer i {
+            color: var(--accent-lime);
+            font-size: 0.7rem;
+        }
+        .page-footer .lime {
+            color: var(--accent-lime);
+            font-weight: 600;
         }
 
-        /* === Адаптивность === */
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             body {
-                padding: 15px;
+                padding: 20px 12px;
             }
-
-            .main-card {
-                padding: 25px;
-                border-radius: 20px;
-            }
-
             .page-header h1 {
                 font-size: 1.8rem;
             }
-
             .docs-grid {
                 grid-template-columns: 1fr;
             }
-
             .category {
-                padding: 18px;
+                padding: 20px 16px;
             }
-
             .doc-card {
                 padding: 14px;
             }
-
             .doc-icon {
-                font-size: 30px;
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
             }
-
             .doc-name {
-                font-size: 0.9rem;
+                font-size: 0.82rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="main-card">
 
-            <!-- Заголовок -->
-            <div class="page-header">
-                <h1>📚 Мои домашние задания</h1>
-                <div class="subtitle">Все ссылки в одном месте</div>
-            </div>
-
-            <!-- КАТЕГОРИЯ 1: Тестирование веб-приложений -->
-            <div class="category">
-                <div class="category-title">
-                    <i class="fas fa-globe"></i> Домашние задания: «Тестирование веб-приложений»
-                </div>
-                <div class="docs-grid">
-                    
-                    <!-- Google Docs -->
-                    <a href="https://docs.google.com/document/d/1Xl4ks4KGr-VQauu6Us5ogTy1VesQ9EC0eQ6nH3sQl-I/edit?tab=t.0#heading=h.v668d91npltx" target="_blank" class="doc-card type-docs">
-                        <div class="doc-icon"><i class="fas fa-file-word"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-docs">Документ</span>
-                            <div class="doc-name">Тестирование веб-приложений</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
-                        </div>
-                    </a>
-
-                    <!-- Google Sheets -->
-                    <a href="https://docs.google.com/spreadsheets/d/1sPAabuLoTAgj2x_zfqo_Rq4vLtR0MhuzSINn-RJCzgM/edit?gid=180909376#gid=180909376" target="_blank" class="doc-card type-sheets">
-                        <div class="doc-icon"><i class="fas fa-table"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-sheets">Таблица</span>
-                            <div class="doc-name">Тестирование веб-приложений</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
-                        </div>
-                    </a>
-
-                    <!-- Курсовая -->
-                    <a href="https://docs.google.com/spreadsheets/d/1zkQX62rZDml7i17P66r4xLPgWor9dYbjcDkS8njU1dc/edit?gid=0#gid=0" target="_blank" class="doc-card type-coursework">
-                        <div class="doc-icon"><i class="fas fa-book"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-coursework">Курсовая</span>
-                            <div class="doc-name">Курсовая: Тестирование веб-приложений</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> май 2026</div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- КАТЕГОРИЯ 2: Git -->
-            <div class="category">
-                <div class="category-title">
-                    <i class="fas fa-code-branch"></i> Домашние задания: «Git — система контроля версий»
-                </div>
-                <div class="docs-grid">
-
-                    <!-- Google Docs -->
-                    <a href="https://docs.google.com/document/d/1e1Oyl0WxRO2lJueKiqLtuUcXF3kKow5-ilYnwlp2bMQ/edit?tab=t.0#heading=h.oxd67rc667m1" target="_blank" class="doc-card type-docs">
-                        <div class="doc-icon"><i class="fas fa-file-alt"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-docs">Документ</span>
-                            <div class="doc-name">Git — система контроля версий</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
-                        </div>
-                    </a>
-
-                    <!-- GitHub -->
-                    <a href="https://github.com/idenbraun" target="_blank" class="doc-card type-github">
-                        <div class="doc-icon"><i class="fab fa-github"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-github">Репозиторий</span>
-                            <div class="doc-name">Личный кабинет GitHub</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- КАТЕГОРИЯ 3: Java -->
-            <div class="category">
-                <div class="category-title">
-                    <i class="fas fa-coffee"></i> Домашние задания: «Java для тестировщиков»
-                </div>
-                <div class="docs-grid">
-
-                    <!-- Google Docs -->
-                    <a href="https://docs.google.com/document/d/1Y7yt7mDHdDN9wOy0v3GwSIRK62Ah5v7ec9UBaiKPxi4/edit?tab=t.0" target="_blank" class="doc-card type-docs">
-                        <div class="doc-icon"><i class="fas fa-file-code"></i></div>
-                        <div class="doc-info">
-                            <span class="doc-badge badge-docs">Документ</span>
-                            <div class="doc-name">Конспекты по программированию</div>
-                            <div class="doc-description">HTML, CSS, JavaScript</div>
-                            <div class="doc-date"><i class="fas fa-sync-alt"></i> май 2026</div>
-                        </div>
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- Кнопка "Назад" -->
-            <div style="text-align: center;">
-                <a href="https://idenbraun.github.io/QA-Engineer/" class="back-button">
-                    <i class="fas fa-arrow-left"></i>
-                    Вернуться на главную
-                </a>
-            </div>
-
-            <!-- Дата обновления -->
-            <div class="last-updated">
-                <i class="fas fa-sync-alt"></i>
-                Последнее обновление: 13 мая 2026 г.
-            </div>
-
+        <!-- Заголовок -->
+        <div class="page-header">
+            <h1>📚 Мои <span class="lime">домашние задания</span></h1>
+            <div class="subtitle">Все ссылки в одном месте</div>
         </div>
+
+        <!-- КАТЕГОРИЯ 1: Тестирование веб-приложений -->
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-globe"></i> Тестирование веб-приложений
+            </div>
+            <div class="docs-grid">
+                
+                <a href="https://docs.google.com/document/d/1Xl4ks4KGr-VQauu6Us5ogTy1VesQ9EC0eQ6nH3sQl-I/edit?tab=t.0#heading=h.v668d91npltx" target="_blank" class="doc-card type-docs">
+                    <div class="doc-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-docs">Документ</span>
+                        <div class="doc-name">Тестирование веб-приложений</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
+                    </div>
+                </a>
+
+                <a href="https://docs.google.com/spreadsheets/d/1sPAabuLoTAgj2x_zfqo_Rq4vLtR0MhuzSINn-RJCzgM/edit?gid=180909376#gid=180909376" target="_blank" class="doc-card type-sheets">
+                    <div class="doc-icon"><i class="fas fa-table"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-sheets">Таблица</span>
+                        <div class="doc-name">Тестирование веб-приложений</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
+                    </div>
+                </a>
+
+                <a href="https://docs.google.com/spreadsheets/d/1zkQX62rZDml7i17P66r4xLPgWor9dYbjcDkS8njU1dc/edit?gid=0#gid=0" target="_blank" class="doc-card type-coursework">
+                    <div class="doc-icon"><i class="fas fa-book"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-coursework">Курсовая</span>
+                        <div class="doc-name">Курсовая: Тестирование веб-приложений</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> май 2026</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- КАТЕГОРИЯ 2: Git -->
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-code-branch"></i> Git — система контроля версий
+            </div>
+            <div class="docs-grid">
+
+                <a href="https://docs.google.com/document/d/1e1Oyl0WxRO2lJueKiqLtuUcXF3kKow5-ilYnwlp2bMQ/edit?tab=t.0#heading=h.oxd67rc667m1" target="_blank" class="doc-card type-docs">
+                    <div class="doc-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-docs">Документ</span>
+                        <div class="doc-name">Git — система контроля версий</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/idenbraun" target="_blank" class="doc-card type-github">
+                    <div class="doc-icon"><i class="fab fa-github"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-github">Репозиторий</span>
+                        <div class="doc-name">Личный кабинет GitHub</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> апрель 2026</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- КАТЕГОРИЯ 3: Java -->
+        <div class="category">
+            <div class="category-title">
+                <i class="fas fa-coffee"></i> Java для тестировщиков
+            </div>
+            <div class="docs-grid">
+
+                <a href="https://docs.google.com/document/d/1Y7yt7mDHdDN9wOy0v3GwSIRK62Ah5v7ec9UBaiKPxi4/edit?tab=t.0" target="_blank" class="doc-card type-docs">
+                    <div class="doc-icon"><i class="fas fa-file-code"></i></div>
+                    <div class="doc-info">
+                        <span class="doc-badge badge-docs">Документ</span>
+                        <div class="doc-name">Конспекты по программированию</div>
+                        <div class="doc-description">HTML, CSS, JavaScript</div>
+                        <div class="doc-date"><i class="fas fa-sync-alt"></i> май 2026</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Кнопка "Назад" -->
+        <div class="back-section">
+            <a href="https://idenbraun.github.io/QA-Engineer/" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Вернуться на главную
+            </a>
+        </div>
+
+        <!-- Дата обновления -->
+        <div class="page-footer">
+            <i class="fas fa-sync-alt"></i>
+            <span>Последнее обновление: <span class="lime">13 мая 2026 г.</span></span>
+        </div>
+
     </div>
 </body>
 </html>
